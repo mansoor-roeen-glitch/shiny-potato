@@ -6,7 +6,7 @@ const COLORS = {
     // text colors
     primaryTextColor: '#222D34',
     textColorTypeB: '#5A5E62',
-    textColorTypeC: '#9AA2AA',
+    textColorTypeC: '#4b5258',
 
     // border colors
     primaryBorderColor: '#D0D4D9'
@@ -22,13 +22,42 @@ const FILTERS = {
 
 const FONTS = {
     primaryFontFamily: 'Inter, Lato, Arial',
-    fontFamilyTypeB: 'Source Sans Pro, Lato, Arial'
+    fontFamilyTypeB: 'Source Sans Pro, Lato, Arial',
+    fontFamilyTypeC: 'Josefin Sans, Inter, Arial',
 }
 
 const BORDERS = {
     searchBarBorder: `1px solid ${COLORS.primaryBorderColor}`,
 }
 
+const DROPDOWNS = {
+    searchBarDropdown: ['Movies', 'Shows']
+}
+
+const LISTS = {
+    listOfPopularSearches: [
+        {
+            query: 'Euphoria',
+            link: '/search?query=euphoria'
+        },
+        {
+            query: 'Avengers',
+            link: '/search?query=avengers'
+        },
+        {
+            query: 'Ozark',
+            link: '/search?query=ozark'
+        },
+        {
+            query: 'Kobra Kai',
+            link: '/search?query=euphoria'
+        },
+        {
+            query: 'Game Of Thrones',
+            link: '/search?query=euphoria'
+        }
+    ]
+}
 
 export {
 
@@ -36,5 +65,7 @@ export {
     FILTERS,
     BORDERS,
     FONTS,
+    DROPDOWNS,
+    LISTS
     
 }

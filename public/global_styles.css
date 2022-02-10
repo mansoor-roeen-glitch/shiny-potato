@@ -1,6 +1,7 @@
 * {
     box-sizing: border-box;
     position: relative;
+    font-family: 'Inter', 'Lato', arial;
     
     font-size: 16px;
     margin: 0px;
