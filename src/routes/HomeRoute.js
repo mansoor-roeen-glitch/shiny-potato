@@ -7,7 +7,7 @@ import {COLORS, FONTS, LISTS} from '../constants';
 import SearchBar from '../components/SearchBar';
 import { Link } from 'react-router-dom';
 
-export default function Home({...props}) {
+export default function HomeRoute ({...props}) {
 
   return (
   

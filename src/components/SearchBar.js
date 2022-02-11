@@ -24,7 +24,7 @@ export default function SearchBar ({...props}) {
 	
 	const handleSearchButton = () => {
 		if (query.length > 0) {
-			navigate(`/search?query=${encodeURI(query)}`)
+			navigate(`/search?query=${encodeURI(query)}&type=${DROPDOWNS.searchBarDropdown[type].toLowerCase()}`)
 		}
 	}
 
@@ -33,7 +33,7 @@ export default function SearchBar ({...props}) {
 
 
 	return (
-		<SearchBarWrapper border={BORDERS.searchBarBorder} isInputOnFocus={isInputOnFocus}>
+		<MainWrapper border={BORDERS.searchBarBorder} isInputOnFocus={isInputOnFocus}>
 
 			<InputWrapper background={COLORS.backgroundColorTypeB} isInputOnFocus={isInputOnFocus}>
 				<Input
@@ -93,7 +93,7 @@ export default function SearchBar ({...props}) {
 
 			</TypeSelectorWrapper>
 
-		</SearchBarWrapper>
+		</MainWrapper>
   )
 }
 
@@ -235,7 +235,7 @@ const InputWrapper = styled.div `
 	height: 100%;
 `;
 
-const SearchBarWrapper = styled.div `
+const MainWrapper = styled.div `
 	display: flex;
 	align-items: center;
 	justify-content: space-between;

@@ -3,8 +3,8 @@ import React from 'react';
 import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
 
 // Route Components
-import Home from './routes/Home';
-import Search from './routes/Search'
+import Home from './routes/HomeRoute';
+import Search from './routes/SearchRoute'
 
 export default function App() {
 
