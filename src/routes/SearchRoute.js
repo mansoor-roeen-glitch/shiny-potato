@@ -64,7 +64,7 @@ export default function SearchRoute () {
           </FiltersHeader>
 
           <FiltersContent>
-
+              
           </FiltersContent>
 
         </FiltersWrapper>
@@ -73,10 +73,10 @@ export default function SearchRoute () {
         
           <SearchHeader>
             <SearchBar
-              query={searchTerm}
-              isInputOnFocus={true}
-              isDropdownActive={false}
-              type={searchType === 'movies' ? 0 : 1}
+                isInputOnFocus={true}
+                isDropdownActive={false}
+                query={decodeURI(queryParam)}
+                type={searchType === 'movies' ? 0 : 1}
             />  
           </SearchHeader>
 
