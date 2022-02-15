@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router';
 // Components
 import SearchBar from '../components/SearchBar';
 import Icon from '../components/Icon';
+import FilterSelect from '../components/FilterSelect';
 
 export default function SearchRoute () {
   
@@ -64,7 +65,12 @@ export default function SearchRoute () {
           </FiltersHeader>
 
           <FiltersContent>
-              
+            <FiltersGrid>
+              <FilterSelect 
+                title='Type:'
+                option='Movies'
+              />              
+            </FiltersGrid>
           </FiltersContent>
 
         </FiltersWrapper>
@@ -91,6 +97,16 @@ export default function SearchRoute () {
   );
 
 }
+
+const FiltersGrid = styled.div `
+  width: 100%;
+  padding: 0px 10px; 
+  grid-template-columns: 1fr;
+  grid-template-rows: 40px;
+  grid-row-gap: 10px;
+
+  display: grid;
+`;
 
 const HeaderText = styled.span `  
   font-size: 18px;
@@ -119,7 +135,6 @@ const SearchHeader = styled.div `
 const FiltersContent = styled.div `
   width: auto;
   height: 100%;
-  background: #EFF1F3;
 `;
 
 const FiltersHeader = styled.div `

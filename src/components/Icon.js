@@ -25,7 +25,7 @@ export default function Icon({...props}) {
 const IconImage = styled.img `
     width: ${props => props.iconSize.iconWidth || 16}px;
     height: ${props => props.iconSize.iconHeight || 16}px;
-`;
+`;  
 
 const IconWrapper = styled.div `
     width: fit-content;
