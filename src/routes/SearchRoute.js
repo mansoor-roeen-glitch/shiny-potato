@@ -69,7 +69,15 @@ export default function SearchRoute () {
               <FilterSelect 
                 title='Type:'
                 option='Movies'
-              />              
+              />   
+              <FilterSelect 
+                title='Order By:'
+                option='Decending'
+              />  
+              <FilterSelect 
+                title='Sort By:'
+                option='Popularity'
+              />             
             </FiltersGrid>
           </FiltersContent>
 
@@ -102,8 +110,8 @@ const FiltersGrid = styled.div `
   width: 100%;
   padding: 0px 10px; 
   grid-template-columns: 1fr;
-  grid-template-rows: 40px;
-  grid-row-gap: 10px;
+  grid-template-rows: auto;
+  grid-row-gap: 14px;
 
   display: grid;
 `;
@@ -125,7 +133,7 @@ const SearchContent = styled.div `
 const SearchHeader = styled.div `
   width: 100%;
   height: 100%;
-  padding-right: 200px;
+  padding-right: 230px;
 
   display: flex;
   align-items: center;
@@ -169,7 +177,7 @@ const MainWrapper = styled.div `
   width: 100%;
   max-width: 1300px;
   column-gap: 35px;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: 230px 1fr;
   padding-top: 35px;
 
   display: grid;

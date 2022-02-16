@@ -17,7 +17,7 @@ const FILTERS = {
     primaryDropshadow: 'drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.25))',
     
     // box shadows
-    primaryBoxshadow: '0px 0px 6px #DBE4E9',
+    primaryBoxshadow: '0px 0px 2px 0px #bacbd3',
 }
 
 const FONTS = {
