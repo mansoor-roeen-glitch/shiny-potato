@@ -1,26 +1,45 @@
 // Dependencies
-import styled from 'styled-components';
-import React, {useState} from 'react'
+import styled from 'styled-components'
+import React, {useState, useRef, useEffect} from 'react'
 import { COLORS, FILTERS } from '../constants'
-import Icon from './Icon';
+import Icon from './Icon'
 
 export default function FilterSelect({title, options, option}) {
   
+  // Reference to Filter Select Wrapper
+  const nodeRef = useRef();
+
 	// Component States
   const [isDropdownActive, setIsDropdownActive] = useState(false)
+  const [selectedOption, setSelectedOption] = useState(option)
 
-  // Function to toggle the state of the dropdown
+  // toggle state of dropdown
   const handleDropdownToggle = () => setIsDropdownActive(!isDropdownActive);
 
-  // Function to hide the dropdown when clicked outside the container
-  const handleBlur = (event) => {
-    if (event.target.localName === 'Button') {
-      return null; 
-    }
+  // updating selected option
+  const updateSelectedOption = (index) => {
+    setSelectedOption(index);
+    setIsDropdownActive(false)
+  }
 
-    setIsDropdownActive(false);
+  // handle mousedown
+  const handleClick = e => {
+    if (nodeRef.current.contains(e.target)) {
+      // inside click
+      return;
+    }
+    // outside click 
+    setIsDropdownActive(false)
   };
 
+  useEffect(() => {
+    // add when mounted
+    document.addEventListener("mousedown", handleClick);
+    // return function to be called when unmounted
+    return () => {
+      document.removeEventListener("mousedown", handleClick);
+    };
+  })
 
   return (
 
@@ -30,10 +49,10 @@ export default function FilterSelect({title, options, option}) {
           {title}
         </Title>
       </TitleWrapper>
-      <ButtonWrapper onBlur={handleBlur}>
+      <ButtonWrapper>
         <Button onClick={handleDropdownToggle} isDropdownActive={isDropdownActive}>
           <ButtonText>
-            {option}
+            {options[selectedOption]}
           </ButtonText>
           <ButtonIcon>
             <Icon 
@@ -46,13 +65,12 @@ export default function FilterSelect({title, options, option}) {
             />
           </ButtonIcon>
         </Button>
-        <Selecter backgroundColor={COLORS.backgroundColorTypeB} dropshadow={FILTERS.primaryBoxshadow} isDropdownActive={isDropdownActive}>
-          <SelectorOption onClick={() => {console.log('click happened')}}>
-            <SelectorOptionText>Shows</SelectorOptionText>
-          </SelectorOption>	
-          <SelectorOption>
-            <SelectorOptionText>Shows</SelectorOptionText>
-          </SelectorOption>	
+        <Selecter ref={nodeRef} backgroundColor={COLORS.backgroundColorTypeB} dropshadow={FILTERS.primaryBoxshadow} isDropdownActive={isDropdownActive}>
+          {options.map((item, index) => (
+            <SelectorOption key={index} onClick={() => {updateSelectedOption(index)}}>
+              <SelectorOptionText>{item}</SelectorOptionText>
+            </SelectorOption>	
+          ))}
         </Selecter>
       </ButtonWrapper>
     </MainWrapper>
@@ -92,8 +110,10 @@ const Selecter = styled.div `
 	height: fit-content;
 	list-style: none;
 	display: ${props => props.isDropdownActive ? 'initial' : 'none'};
+  
+  right: 0px;
   box-shadow: 0px 0px 2px 0px #bacbd3;
-
+  min-width: 115px;
   width: calc(100% - 2px);
   top: calc(100% + 4px);
 	padding: 8px;
@@ -123,7 +143,7 @@ const Button = styled.button `
 	border: none;
 	cursor: pointer;
 	width: fit-content;
-  
+
   border-radius: 2px;
   padding: 15px;
 	column-gap: 9px;

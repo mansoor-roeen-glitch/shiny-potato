@@ -31,7 +31,11 @@ const BORDERS = {
 }
 
 const DROPDOWNS = {
-    searchBarDropdown: ['Movies', 'Shows']
+    searchBarDropdown: ['Movies', 'Shows'],
+    filterTypeDropdown: ['Movies', 'Shows'],
+    filterOrderDropdown: ['Descending', 'Ascending'],
+    filterSortDropdown: ['Popularity', 'Title', 'Date', 'Rating'],
+    filtersGenreDropdown: ['Any Genre', 'Action', 'Adventure', 'Comedy', 'SCI-FI', 'Horror', 'Romance'],
 }
 
 const LISTS = {

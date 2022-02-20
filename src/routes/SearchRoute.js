@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router';
 
 // Components
 import SearchBar from '../components/SearchBar';
-import Icon from '../components/Icon';
-import FilterSelect from '../components/FilterSelect';
+import FiltersSection from '../components/FiltersSection';
+import SimilarKeywordsSection from '../components/SimilarKeywordsSection';
 
 export default function SearchRoute () {
   
@@ -46,45 +46,12 @@ export default function SearchRoute () {
     <OuterWrapper>
       <MainWrapper>
 
-        <FiltersWrapper>
-
-          <FiltersHeader>
-
-            <Icon 
-              iconFile='filters-icon.svg'
-              iconAlt='Filters Icon'
-              iconSize={{
-                iconHeight: 24,
-                iconWidth: 24,
-              }}
-            />
-            <HeaderText>
-              Filters
-            </HeaderText>
-
-          </FiltersHeader>
-
-          <FiltersContent>
-            <FiltersGrid>
-              <FilterSelect 
-                title='Type:'
-                option='Movies'
-              />   
-              <FilterSelect 
-                title='Order By:'
-                option='Decending'
-              />  
-              <FilterSelect 
-                title='Sort By:'
-                option='Popularity'
-              />             
-            </FiltersGrid>
-          </FiltersContent>
-
-        </FiltersWrapper>
+        <Navbar>
+          <FiltersSection />
+          <SimilarKeywordsSection />
+        </Navbar>
 
         <SearchWrapper>
-        
           <SearchHeader>
             <SearchBar
                 isInputOnFocus={true}
@@ -93,11 +60,9 @@ export default function SearchRoute () {
                 type={searchType === 'movies' ? 0 : 1}
             />  
           </SearchHeader>
-
           <SearchContent>
             
           </SearchContent>
-
         </SearchWrapper>
 
       </MainWrapper>
@@ -106,22 +71,12 @@ export default function SearchRoute () {
 
 }
 
-const FiltersGrid = styled.div `
-  width: 100%;
-  padding: 0px 10px; 
-  grid-template-columns: 1fr;
-  grid-template-rows: auto;
-  grid-row-gap: 14px;
-
-  display: grid;
-`;
-
-const HeaderText = styled.span `  
-  font-size: 18px;
-  
+const Navbar = styled.div `
   display: flex;
+  flex-direction: column;
   align-items: center;
-  color: #56595B;
+
+  row-gap: 10px;
 `;
 
 const SearchContent = styled.div `
@@ -140,33 +95,9 @@ const SearchHeader = styled.div `
   justify-content: center;
 `;
 
-const FiltersContent = styled.div `
-  width: auto;
-  height: 100%;
-`;
-
-const FiltersHeader = styled.div `
-  height: 100%;
-  width: 100%;
-  column-gap: 12px;
-  padding-left: 10px;
-
-  display: flex;
-  align-items: center;
-`;
-
 const SearchWrapper = styled.div `
   width: 100%;
   height: 650px;
-  row-gap: 28px;
-  grid-template-rows: 50px 1fr;
-
-  display: grid;
-`;
-
-const FiltersWrapper = styled.div `
-  width: 100%;
-  height: 415px;
   row-gap: 28px;
   grid-template-rows: 50px 1fr;
 
