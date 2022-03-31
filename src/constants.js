@@ -31,7 +31,7 @@ const BORDERS = {
 }
 
 const DROPDOWNS = {
-    searchBarDropdown: ['Movies', 'Shows'],
+    searchBarDropdown: ['Movie', 'Show'],
     filterTypeDropdown: ['Movies', 'Shows'],
     filterOrderDropdown: ['Descending', 'Ascending'],
     filterSortDropdown: ['Popularity', 'Title', 'Date', 'Rating'],
@@ -63,6 +63,15 @@ const LISTS = {
     ]
 }
 
+const URL = {
+    tmdbApiURL: 'https://api.themoviedb.org/3',
+    tmdbImagesURL: 'https://image.tmdb.org/t'
+}
+
+const API_XTOKEN = '3ac6f85f91f5f1947d9a8d7706fdf6b5' 
+
+const MLIST = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
+
 export {
 
     COLORS,
@@ -70,6 +79,9 @@ export {
     BORDERS,
     FONTS,
     DROPDOWNS,
-    LISTS
-    
+    LISTS,
+    URL,
+    API_XTOKEN,
+    MLIST
+
 }

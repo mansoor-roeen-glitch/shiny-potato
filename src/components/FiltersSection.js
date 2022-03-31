@@ -7,10 +7,50 @@ import Icon from '../components/Icon';
 import FilterSelect from './FilterSelect'
 import { DROPDOWNS } from '../constants';
 
-export default function FiltersSection() {
-  
-  return (
+export default function FiltersSection({filters, setFilters}) {
 
+  // handle filter update
+  const handleFilterUpdate = (filterIndex) => {
+
+  }
+
+  let filtersData = [
+    {
+      title: 'Type:',
+      option: filters.type,
+      options: DROPDOWNS.filterTypeDropdown,
+    }, 
+    {
+      title: 'Order By:',
+      option: filters.order,
+      options: DROPDOWNS.filterOrderDropdown,
+    },
+    {
+      title: 'Sort By:',
+      option: filters.sort,
+      options: DROPDOWNS.filterSortDropdown,
+    },
+    {
+      title: 'Genre:',
+      option: filters.genre,
+      options: DROPDOWNS.filtersGenreDropdown,
+    }    
+  ]
+
+  const renderFilters = () => {
+    return filtersData?.map((f, i) => (
+      <FilterSelect 
+        key={i}
+        filterIndex={i}
+        title={f.title}
+        option={f.option}
+        options={f.options}
+        setOption={handleFilterUpdate}
+      />  
+    ))
+  }
+
+  return (
     <FiltersWrapper>
 
       <FiltersHeader>
@@ -29,26 +69,7 @@ export default function FiltersSection() {
 
       <FiltersContent>
         <FiltersGrid>
-          <FilterSelect 
-            title='Type:'
-            option={0}
-            options={DROPDOWNS.filterTypeDropdown}
-          />   
-          <FilterSelect 
-            title='Order By:'
-            option={0}
-            options={DROPDOWNS.filterOrderDropdown}
-          />  
-          <FilterSelect 
-            title='Sort By:'
-            option={0}
-            options={DROPDOWNS.filterSortDropdown}
-          />             
-          <FilterSelect 
-            title='Genre:'
-            option={0}
-            options={DROPDOWNS.filtersGenreDropdown}
-          />             
+          {renderFilters()}  
         </FiltersGrid>
       </FiltersContent>
 

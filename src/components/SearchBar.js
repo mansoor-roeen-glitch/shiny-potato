@@ -180,7 +180,7 @@ const TypeSelectorWrapper = styled.div `
 	justify-content: center;
 `;
 
-const Button = styled.div `
+const Button = styled.button `
 	display: flex;
 	justify-content: center;
 	align-items: center;

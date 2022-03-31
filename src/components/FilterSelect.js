@@ -4,7 +4,7 @@ import React, {useState, useRef, useEffect} from 'react'
 import { COLORS, FILTERS } from '../constants'
 import Icon from './Icon'
 
-export default function FilterSelect({title, options, option}) {
+export default function FilterSelect({title, options, option, filterIndex, setOption}) {
   
   // Reference to Filter Select Wrapper
   const nodeRef = useRef();
@@ -40,6 +40,10 @@ export default function FilterSelect({title, options, option}) {
       document.removeEventListener("mousedown", handleClick);
     };
   })
+
+  useEffect(() => {
+    setOption(filterIndex)
+  }, [selectedOption])
 
   return (
 
