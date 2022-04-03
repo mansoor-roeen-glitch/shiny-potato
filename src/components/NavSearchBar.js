@@ -9,7 +9,6 @@ import Icon from './Icon';
 
 export default function NavSearchBar ({...props}) {
   
-    console.log(props)
 	// Component Variables 
 	const navigate = useNavigate();
 

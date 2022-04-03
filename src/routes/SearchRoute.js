@@ -7,9 +7,10 @@ import { useNavigate } from 'react-router';
 // Components
 import FiltersSection from '../components/FiltersSection';
 import SimilarKeywordsSection from '../components/SimilarKeywordsSection';
-import { getSearchResult, initializeFilters } from '../functions/extra';
+import { getSearchResult, initializeFilters, sortArray } from '../functions/extra';
 import GridTypeA from '../components/GridTypeA';
 import NavSearchBar from '../components/NavSearchBar';
+import { DROPDOWNS } from '../constants';
 
 export default function SearchRoute () {
 
@@ -50,6 +51,31 @@ export default function SearchRoute () {
   // this function will filter the results
   const filterResults = () => {
 
+    let searchResultsCopy = [...searchResults]; 
+    if (searchResultsCopy === []) return null;
+
+    // this if statements checks if search type has changed or not
+    // if has changed, get the new list of results
+    if (filters.type !== searchType) {setLoading(true); setSearchType(filters.type)};
+
+    // setting sort by
+    // order decides which way to start from
+    // scenario:- if order is 'decending' then we start from the top results and viceversa
+    let order_by = filters.order === 0 ? -1 : 1;
+    let sort_by = DROPDOWNS.filterSortDropdown[filters.sort].toLowerCase();
+
+    // add parsed release date to all results
+    searchResultsCopy.map((result, index) => {
+      let resultReleaseDate = result?.release_date; 
+      searchResultsCopy[index].parsedReleaseDate = !resultReleaseDate ? 0 : parseInt(resultReleaseDate.split('-').join(''));
+    })
+
+    // sort search resutls copy array
+    let sortedArray = sortArray({array: searchResultsCopy, sortBy: sort_by, order: order_by, type: searchType});
+    
+    // check if sorted array is not the same as the current array; 
+    if (sortedArray !== filteredResults) setSearchResults(sortedArray);
+
   }
 
   // updates search term when function is called by input
@@ -79,12 +105,30 @@ export default function SearchRoute () {
 
   }
 
+  const handleTypeChange = () => {
+    let newSearchType = DROPDOWNS.filterTypeDropdown[searchType].toLowerCase();
+    navigate(`/search?query=${searchTerm}&type=${newSearchType}`)
+  }
+
   // this function will run before everything else
-  // this function would update search term, search type, and search results
+  // this function would update search term, and search results
   // an empty array has been passed to make sure the function is not repeated
   useEffect(() => {
+    setLoading(true)
+    setFilters(initializeFilters({searchType}))
     handleSearchResults()
-  }, [search, searchType])
+  }, [search])
+
+  // on type change, redirect to new url
+  useEffect(() => {
+    setLoading(true)
+    handleTypeChange()
+  }, [searchType])
+
+  // when filter changes then run this this function
+  useEffect(() => {
+    if (filters !== initializeFilters({searchType})) filterResults();
+  }, [filters])
 
   return (
     <OuterWrapper>

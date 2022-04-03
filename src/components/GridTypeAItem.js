@@ -27,8 +27,8 @@ export default function GridTypeAItem({data, type, query}) {
 
   // we'll return the formatted title
   const formatTitle = () => {
-    if (title.length > 19) {
-      return title.slice(0, 20) + '...'
+    if (title?.length > 19) {
+      return title?.slice(0, 20) + '...'
     }
 
     return title
@@ -53,6 +53,10 @@ export default function GridTypeAItem({data, type, query}) {
 
   }, [])
 
+  if (!data) {
+    return null;
+  }
+  
   return (
     <MainWrapper ref={posterWrapperRef}>
       <Link to={contentLink} style={{width: '100%', height: 'fit-contents'}}>
