@@ -1,8 +1,8 @@
 // Dependencies
 import styled from 'styled-components'
 import React, {useState, useRef, useEffect} from 'react'
-import { COLORS, FILTERS } from '../constants'
-import Icon from './Icon'
+import { COLORS, FILTERS } from '../../constants'
+import Icon from '../utilities/Icon'
 
 export default function FilterSelect({title, options, option, filterIndex, setOption, filterKey}) {
   

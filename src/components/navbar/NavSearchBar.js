@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import {useNavigate} from 'react-router';
 
 // Constants Variables
-import {BORDERS, COLORS, FONTS, DROPDOWNS} from '../constants';
-import Icon from './Icon';
+import {BORDERS, COLORS, FONTS, DROPDOWNS} from '../../constants';
+import Icon from '../utilities/Icon';
 
 export default function NavSearchBar ({...props}) {
   

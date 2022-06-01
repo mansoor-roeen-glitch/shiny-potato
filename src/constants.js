@@ -73,7 +73,6 @@ const API_XTOKEN = '3ac6f85f91f5f1947d9a8d7706fdf6b5'
 const MLIST = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
 
 export {
-
     COLORS,
     FILTERS,
     BORDERS,
@@ -83,5 +82,4 @@ export {
     URL,
     API_XTOKEN,
     MLIST
-
 }

@@ -3,8 +3,24 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-export default function SimilarKeywordsSection() {
- 
+export default function SimilarKeywordsSection({similarKeywords}) {
+
+  const renderGrid = () => {
+    similarKeywords.results.map((result) => {
+      return (
+        <GridItem>
+            <Link to='/unavailable' style={{textDecoration: 'none'}}>
+              <Button>
+                <ButtonText>
+                  {result.name}
+                </ButtonText>
+              </Button>
+            </Link>
+        </GridItem>
+      )
+    })
+  }
+
   return (
 
     <MainWrapper>
@@ -17,37 +33,7 @@ export default function SimilarKeywordsSection() {
 
       <Content>
         <Grid>
-
-          <GridItem>
-            <Link to='/avengers' style={{textDecoration: 'none'}}>
-              <Button>
-                <ButtonText>
-                  Avengers
-                </ButtonText>
-              </Button>
-            </Link>
-          </GridItem>
-
-          <GridItem>
-            <Link to='/avengers' style={{textDecoration: 'none'}}>
-              <Button>
-                <ButtonText>
-                  Avengers: End Game
-                </ButtonText>
-              </Button>
-            </Link>
-          </GridItem>
-
-          <GridItem>
-            <Link to='/avengers' style={{textDecoration: 'none'}}>
-              <Button>
-                <ButtonText>
-                  Avengers: Infinity Wars
-                </ButtonText>
-              </Button>
-            </Link>
-          </GridItem>
-
+          {renderGrid()}
         </Grid>
       </Content>
 

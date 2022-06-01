@@ -7,9 +7,6 @@ import Home from './routes/HomeRoute';
 import Search from './routes/SearchRoute'
 
 export default function App() {
-
-  // Component Variables
-
   return (
     <Router>
       <Routes>

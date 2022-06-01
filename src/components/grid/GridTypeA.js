@@ -5,7 +5,7 @@ import styled from 'styled-components';
 // components
 import GridTypeAItem from './GridTypeAItem';
 
-export default function GridTypeA({gridData, type, query}) {
+export default function GridTypeA({gridData, type, query, setSelectedItem}) {
 
   // this would map grid data
   // and then return gridItem for each item
@@ -15,17 +15,28 @@ export default function GridTypeA({gridData, type, query}) {
       // if it's movie, then do this if statement
       if (type === 0) {
         if (gridItem.title !== '' && gridItem.release_date !== '') {
-          return (<GridTypeAItem data={gridItem} key={index} type={type} query={query} />)
-        }
-      }
+          return (
+            <GridTypeAItem 
+              data={gridItem} 
+              key={index} 
+              type={type} 
+              query={query} 
+              setSelectedItem={setSelectedItem} 
+          />)
+      }}
 
       // if it's show, then do this if statement
       if (type === 1) {
         if (gridItem.name !== '' && gridItem.first_air_date !== '') {
-          return (<GridTypeAItem data={gridItem} key={index} type={type} query={query} />)
-        }
-      }
-
+          return (
+            <GridTypeAItem 
+              data={gridItem} 
+              key={index} 
+              type={type} 
+              query={query} 
+              setSelectedItem={setSelectedItem} 
+            />)
+      }}
     })
   }
 
@@ -51,8 +62,9 @@ const MainGrid = styled.ul `
 
 const MainWrapper = styled.div `
   width: 100%;
-  height: fit-content;
+  padding-bottom: 35px;
 
+  height: fit-content;
   display: flex;
   align-items: center;
   justify-content: center;

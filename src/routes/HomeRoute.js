@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import {COLORS, FONTS, LISTS} from '../constants';
 
 // Components
-import SearchBar from '../components/SearchBar';
+import SearchBar from '../components/search/SearchBar';
 import { Link } from 'react-router-dom';
 
 export default function HomeRoute ({...props}) {

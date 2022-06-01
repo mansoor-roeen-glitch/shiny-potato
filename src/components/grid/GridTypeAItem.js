@@ -1,10 +1,10 @@
 // dependencies 
-import React, { createRef, useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom';
+import React, { createRef, useEffect, useState } from 'react'
+import { URL, MLIST, DROPDOWNS } from '../../constants'
 import styled from 'styled-components'
-import { URL, MLIST, DROPDOWNS } from '../constants'
+import Icon from '../utilities/Icon';
 
-export default function GridTypeAItem({data, type, query}) {
+export default function GridTypeAItem({data, type, query, setSelectedItem}) {
 
   type = DROPDOWNS.searchBarDropdown[type].toLowerCase()
 
@@ -12,10 +12,9 @@ export default function GridTypeAItem({data, type, query}) {
   let title = type === 'movie' ? data.title : data.name;
   let release_date = type === 'movie' ? data.release_date : data.first_air_date;
 
-  const contentLink = `/search/${data.id}/${encodeURIComponent(title)}?query=${query}&type=${type}`;
-
   // use states
   const [posterHovered, setPosterHovered] = useState('');
+  const [posterPath, setPosterPath] = useState('');
 
   const posterWrapperRef = createRef();
   // formatting the date, not that important
@@ -27,10 +26,7 @@ export default function GridTypeAItem({data, type, query}) {
 
   // we'll return the formatted title
   const formatTitle = () => {
-    if (title?.length > 19) {
-      return title?.slice(0, 20) + '...'
-    }
-
+    if (title?.length > 19) return title?.slice(0, 20) + '...';
     return title
   }
 
@@ -39,8 +35,22 @@ export default function GridTypeAItem({data, type, query}) {
     return URL.tmdbImagesURL + `/p/w300/${data.poster_path}`
   }
 
+  // set the poster path to broken image
+  const brokenImage = () => {
+    setPosterPath('/assets/images/fallback-image.png');
+  }
+
+  // update the selected movie or tv show
+  const handleClick = () => {
+    let updatedData = {title, release_date, ...data};
+    setSelectedItem(updatedData);
+  }
+
   useEffect(() => {
-    
+
+    // updating the poster path
+    setPosterPath(getPosterUrl());
+
     // set hovered to true if hovering on
     posterWrapperRef.current.addEventListener('mouseover', () => {
       setPosterHovered('hovered')
@@ -53,31 +63,46 @@ export default function GridTypeAItem({data, type, query}) {
 
   }, [])
 
+  useEffect(() => setPosterPath(getPosterUrl), [data.poster_path])
+
+  if (!release_date || !title) {
+    return null;
+  }
+
   if (!data) {
     return null;
   }
   
   return (
     <MainWrapper ref={posterWrapperRef}>
-      <Link to={contentLink} style={{width: '100%', height: 'fit-contents'}}>
+      <Button onClick={handleClick}>
         <PosterWrapper>
           <PosterOverlay hovered={posterHovered} className={posterHovered}>
             <PlayBtn className={posterHovered} />
           </PosterOverlay>
           <PosterImage>
-            <Image 
+            <Image
                 className={posterHovered === 'hovered' && 'zoom_in' }
-                src={getPosterUrl()}
-                data-src={getPosterUrl}
+                src={posterPath}
+                alt={() => formatTitle()}
+                data-src={() => getPosterUrl()}
+                onError={brokenImage}
             />
           </PosterImage>
-          {/* <RatingWrapper>
+          <RatingWrapper hovered={posterHovered} className={posterHovered}>
+            <RatingIconWrapper>
+              <Icon 
+                iconFile='star-icon.svg'
+                iconAlt='Star Icon'
+                iconSize={{iconWidth: 15, iconHeight: 15}}
+              />
+            </RatingIconWrapper>
             <RatingText>
-              {}
+              {data.vote_average}
             </RatingText>
-          </RatingWrapper> */}
+          </RatingWrapper>
         </PosterWrapper>
-      </Link>
+      </Button>
       <DescriptionWrapper>
         <Title>{formatTitle()}</Title>
         <Release>{formatReleaseDate()}</Release>
@@ -86,11 +111,78 @@ export default function GridTypeAItem({data, type, query}) {
   )
 }
 
+const Button = styled.div `
+  width: auto;
+  height: fit-content;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const RatingIconWrapper = styled.div `
+  height: 100%;
+  width: 20px;
+  margin-right: 3px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;  
+`;
+
+const RatingText = styled.span `
+  color: white;
+  font-size: 14px;
+`;
+
+const RatingWrapper = styled.div `
+  bottom: 0px;
+  right: 0px;
+  width: 60px;
+  height: 30px;
+  z-index: 2;
+  opacity: 0;
+  background: rgba(255, 255, 255, 0.25);
+
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.hovered {
+    animation: fadeIn .8s forwards;
+  }
+
+  &.not_hovered {
+    animation: fadeOut .8s forwards;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    };
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    };
+
+    to {
+      opacity: 0;
+    }
+  }
+
+`;
 
 const PlayBtn = styled.div `
   width: 100%;
   height: 100%;
-  background: url('/icons/play-icon.svg') 50% 50% no-repeat;
+  background: url('/assets/icons/play-icon.svg') 50% 50% no-repeat;
   background-size: 40% 40%;
   opacity: 0;
 `;
@@ -125,7 +217,7 @@ const DescriptionWrapper = styled.div `
   justify-content: flex-start;
 `;
 
-const Image = styled.div `
+const Image = styled.img `
   width: 100%;
   background-size: 100% 100%;
   min-height: 270px;
@@ -133,7 +225,7 @@ const Image = styled.div `
 
   height: auto;
   object-fit: cover;
-  background-image: url(${props => props.src});
+  background-image: url(${props => props.src });
   transition: .3s ease;
 `;
 
@@ -159,7 +251,7 @@ const PosterOverlay = styled.div `
   width: 100%;
   height: 100%;
   background: rgba(47, 49, 65, 0);
-  z-index: -1;
+  z-index: 5;
   top: 0px;
   bottom: 0px;
   opacity: 0;
@@ -168,11 +260,11 @@ const PosterOverlay = styled.div `
   position: absolute;
 
   ${PlayBtn}.hovered {
-    animation: btnIn .8s forwards;
+    animation: btnIn .3s forwards;
   }
 
   ${PlayBtn}.not_hovered {
-    animation: btnOut .8s forwards;
+    animation: btnOut .3s forwards;
   }
 
   @keyframes btnIn {

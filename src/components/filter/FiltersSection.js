@@ -3,9 +3,9 @@ import React from 'react'
 import styled from 'styled-components'
 
 // Components
-import Icon from '../components/Icon';
+import Icon from '../utilities/Icon';
 import FilterSelect from './FilterSelect'
-import { DROPDOWNS } from '../constants';
+import { DROPDOWNS } from '../../constants';
 
 export default function FiltersSection({filters, setFilters}) {
 
